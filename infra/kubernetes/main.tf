@@ -5,7 +5,7 @@ resource "google_container_cluster" "gitlab-cluster" {
   location           = var.GOOGLE_REGION
 
   # metadata (e.g. to aggregate billing)
-  labels = local.gcp_labels
+  resource_labels = local.gcp_labels
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -42,6 +42,9 @@ resource "google_container_cluster" "gitlab-cluster" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+
+    # metadata (e.g. to aggregate billing)
+    labels = local.gcp_labels
   }
 
   timeouts {
@@ -192,7 +195,7 @@ data "external" "gitlab_runner_token" {
 locals {
   gitlab_address = google_compute_address.static_cluster_ip.address
   gitlab_runner_token =  data.external.gitlab_runner_token.result.token
-  kube_namespace = "kube-system"
+  kube_namespace = "gitlab-managed-apps"
   kube_service_account = "tiller"
   gcp_labels = "${map(
     "name"      , "${var.PROJECT_TAG}-gs-kubernetes",
