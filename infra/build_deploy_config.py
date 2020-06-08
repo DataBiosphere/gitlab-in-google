@@ -16,7 +16,9 @@ env_vars_to_infra = [
     "EXTERNAL_URL",
     "TERRAFORM_BACKEND_STATE_BUCKET",
     "SECRETSTORE_SSH_KEYS",
-    "SECRETSTORE_RUNNER_TOKEN"
+    "SECRETSTORE_RUNNER_TOKEN",
+    "PROJECT_TAG",
+    "PROJECT_OWNER_TAG"
 ]
 
 parser = argparse.ArgumentParser(description=__doc__)
