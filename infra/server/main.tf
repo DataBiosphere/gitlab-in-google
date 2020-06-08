@@ -17,6 +17,10 @@ resource "google_compute_instance" "smallspark" {
     }
   }
 
+  # metadata (e.g. to aggregate billing)
+  labels = local.gcp_labels
+
+  // the "gitlab-firewall" resource below targets this tag
   tags = ["apply-gitlab-firewall"]
 
   timeouts {
@@ -117,4 +121,9 @@ locals {
   github_client_secret =  data.external.github_app.result.client_secret
   public_ssh_key =  data.external.ssh_keys.result.public
   private_ssh_key =  data.external.ssh_keys.result.private
+  gcp_tags = "${map(
+    "name"      , "${var.PROJECT_TAG}-gs-server",
+    "owner"     , "${var.PROJECT_OWNER_TAG}",
+    "managed-by" , "terraform"
+  )}"
 }

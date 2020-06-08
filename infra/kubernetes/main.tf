@@ -4,6 +4,9 @@ resource "google_container_cluster" "gitlab-cluster" {
   project            = var.GOOGLE_PROJECT_ID
   location           = var.GOOGLE_REGION
 
+  # metadata (e.g. to aggregate billing)
+  labels = local.gcp_labels
+
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
@@ -118,10 +121,6 @@ data "google_compute_address" "gitlab_compute_address" {
   region = var.GOOGLE_REGION
 }
 
-locals {
-  gitlab_address = google_compute_address.static_cluster_ip.address
-}
-
 // Documentation for this Helm Chart: https://docs.gitlab.com/runner/install/kubernetes.html
 resource "helm_release" "gitlab" {
   name = "gitlab-runner"
@@ -191,7 +190,13 @@ data "external" "gitlab_runner_token" {
 }
 
 locals {
+  gitlab_address = google_compute_address.static_cluster_ip.address
   gitlab_runner_token =  data.external.gitlab_runner_token.result.token
   kube_namespace = "kube-system"
   kube_service_account = "tiller"
+  gcp_labels = "${map(
+    "name"      , "${var.PROJECT_TAG}-gs-kubernetes",
+    "owner"     , "${var.PROJECT_OWNER_TAG}",
+    "managed-by" , "terraform"
+  )}"
 }

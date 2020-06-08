@@ -13,6 +13,10 @@ GOOGLE_PROJECT_ID="platform-dev-178517"
 GOOGLE_REGION="us-west1"
 GOOGLE_ZONE="us-west1-b"
 
+# a recognizable project label for tagging resources
+PROJECT_TAG="bdcat"
+PROJECT_OWNER_TAG="lblauvel@ucsc.edu"
+
 # TODO: check for GOOGLE_APPLICATION_CREDENTIALS
 GOOGLE_APPLICATION_CREDENTIALS='/home/quokka/.credentials/platform-dev.json'
 
@@ -23,5 +27,5 @@ SECRETSTORE_RUNNER_TOKEN="gitlab_server-runner_token"
 GITLAB_SERVER_NAME="smallspark"
 GITLAB_USERNAME="ubuntu"
 EXTERNAL_URL="biodata-integration-tests.net"
-TERRAFORM_BACKEND_STATE_BUCKET='terraform-gitlab-state-d3443c'
+TERRAFORM_BACKEND_STATE_BUCKET="terraform-gitlab-state-d3443c"
 set +a
