@@ -15,7 +15,7 @@ GOOGLE_ZONE="us-west1-b"
 
 # a recognizable project label for tagging resources
 PROJECT_TAG="bdcat"
-PROJECT_OWNER_TAG="lblauvel@ucsc.edu"
+PROJECT_OWNER_TAG="biodatacatalyst"
 
 # TODO: check for GOOGLE_APPLICATION_CREDENTIALS
 GOOGLE_APPLICATION_CREDENTIALS='/home/quokka/.credentials/platform-dev.json'
